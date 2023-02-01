@@ -1,0 +1,11 @@
+.bannerBg{
+    background-image: url('../public/netflixteaser.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    background-blend-mode: multiply;
+}
+.backdropFilter{
+    backdrop-filter: blur(20px);
+}
