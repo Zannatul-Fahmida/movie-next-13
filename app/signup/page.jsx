@@ -1,16 +1,13 @@
 "use client";
+import Social from "@/components/Social";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { SlLogin } from "react-icons/sl";
-import { FcGoogle } from "react-icons/fc";
-import { FaLinkedinIn } from "react-icons/fa";
-import { BsGithub, BsFacebook } from "react-icons/bs";
 
 export default function Signup() {
   const {
     register,
     handleSubmit,
-
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => console.log(data);
@@ -18,7 +15,7 @@ export default function Signup() {
   return (
     <div className="flex flex-col items-center">
       <div className="flex flex-col md:flex-row mx-4 items-center justify-center my-12">
-        <div className="bg-orange-500 md:w-1/3 py-6 px-4 text-center text-white">
+        <div className="bg-fuchsia-700 md:w-1/3 py-6 px-4 text-center text-white">
           <SlLogin className="w-full h-24" />
           <h2 className="my-3 text-2xl">Registration</h2>
           <p>
@@ -79,10 +76,7 @@ export default function Signup() {
           now
         </p>
         <p>or</p>
-        <button className="mx-2"><FcGoogle /></button>
-        <button className="mx-2"><BsGithub /></button>
-        <button className="mx-2 text-blue-800"><BsFacebook /></button>
-        <button className="mx-2 text-blue-600"><FaLinkedinIn /></button>
+        <Social />
       </div>
     </div>
   );

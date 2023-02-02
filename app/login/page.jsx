@@ -5,6 +5,7 @@ import { SlLogin } from "react-icons/sl";
 import { FcGoogle } from "react-icons/fc";
 import { FaLinkedinIn } from "react-icons/fa";
 import { BsGithub, BsFacebook } from "react-icons/bs";
+import Social from "@/components/Social";
 
 export default function Login() {
   const {
@@ -66,10 +67,7 @@ export default function Login() {
           now
         </p>
         <p>or</p>
-        <button className="mx-2"><FcGoogle /></button>
-        <button className="mx-2"><BsGithub /></button>
-        <button className="mx-2 text-blue-800"><BsFacebook /></button>
-        <button className="mx-2 text-blue-600"><FaLinkedinIn /></button>
+        <Social />
       </div>
     </div>
   );
