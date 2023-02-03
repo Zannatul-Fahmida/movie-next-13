@@ -1,16 +1,21 @@
 "use client";
 import Social from "@/components/Social";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { SlLogin } from "react-icons/sl";
 
 export default function Signup() {
+  const session = useSession();
+  console.log(session);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -38,6 +43,7 @@ export default function Signup() {
               className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
         focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               placeholder="Email"
+              type="email"
               {...register("email", { required: true })}
             />
             {errors.email && <span>This field is required</span>}
@@ -45,6 +51,7 @@ export default function Signup() {
               className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
         focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               placeholder="Password"
+              type="password"
               {...register("password", { required: true })}
             />
             {errors.password && <span>This field is required</span>}
@@ -52,6 +59,7 @@ export default function Signup() {
               className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
         focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               placeholder="Confirm Password"
+              type="password"
               {...register("confirmPassword", { required: true })}
             />
             {errors.confirmPassword && <span>This field is required</span>}

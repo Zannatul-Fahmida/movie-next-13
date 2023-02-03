@@ -93,10 +93,7 @@ export default function Navbar() {
               <li>
                 <button
                   className="md:p-4 py-2 block hover:text-rose-600 text-rose-700"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    signOut();
-                  }}
+                  onClick={signOut}
                 >
                   Sign Out
                 </button>
