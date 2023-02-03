@@ -7,7 +7,6 @@ import { SlLogin } from "react-icons/sl";
 
 export default function Signup() {
   const session = useSession();
-  console.log(session);
   const {
     register,
     handleSubmit,
