@@ -5,6 +5,7 @@ import LinkedInProvider from "next-auth/providers/linkedin";
 import FacebookProvider from "next-auth/providers/facebook";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "../../../lib/mongodb";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 export default NextAuth({
   providers: [
@@ -23,6 +24,24 @@ export default NextAuth({
     FacebookProvider({
       clientId: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    }),
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        name: { label: "Name", type: "text", placeholder: "jsmith" },
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+        confirmPassword: { label: "Confirm Password", type: "password" },
+      },
+      async authorize(credentials, req) {
+        const { name, email, password, confirmPassword } = credentials;
+        const user = { name, email, password, confirmPassword };
+        if (user) {
+          return user;
+        } else {
+          return null;
+        }
+      },
     }),
   ],
   adapter: MongoDBAdapter(clientPromise),

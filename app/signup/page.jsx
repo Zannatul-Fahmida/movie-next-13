@@ -1,6 +1,6 @@
 "use client";
 import Social from "@/components/Social";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { SlLogin } from "react-icons/sl";
@@ -13,7 +13,12 @@ export default function Signup() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    signIn("credentials", {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      confirmPassword: data.confirmPassword,
+    });
   };
 
   return (

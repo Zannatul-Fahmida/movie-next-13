@@ -2,8 +2,10 @@
 import Link from "next/link";
 import { FiMenu } from "react-icons/fi";
 import { useSession, signOut } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+  const pathname = usePathname();
   const { data: session } = useSession();
   const handleNav = () => {
     menu.classList.toggle("hidden");
@@ -49,7 +51,11 @@ export default function Navbar() {
           >
             <li>
               <Link
-                className="md:p-4 py-2 block hover:text-rose-600"
+                className={
+                  pathname === "/popularMovies"
+                    ? "md:p-4 py-2 block text-rose-600"
+                    : "md:p-4 py-2 block hover:text-rose-600"
+                }
                 href="/popularMovies"
               >
                 Popular Movies
@@ -57,7 +63,11 @@ export default function Navbar() {
             </li>
             <li>
               <Link
-                className="md:p-4 py-2 block hover:text-rose-600"
+                className={
+                  pathname === "/topRatedMovies"
+                    ? "md:p-4 py-2 block text-rose-600"
+                    : "md:p-4 py-2 block hover:text-rose-600"
+                }
                 href="/topRatedMovies"
               >
                 Top rated Movies
@@ -65,7 +75,11 @@ export default function Navbar() {
             </li>
             <li>
               <Link
-                className="md:p-4 py-2 block hover:text-rose-600"
+                className={
+                  pathname === "/popularShows"
+                    ? "md:p-4 py-2 block text-rose-600"
+                    : "md:p-4 py-2 block hover:text-rose-600"
+                }
                 href="/popularShows"
               >
                 Popular Shows
@@ -73,7 +87,11 @@ export default function Navbar() {
             </li>
             <li>
               <Link
-                className="md:p-4 py-2 block hover:text-rose-600"
+                className={
+                  pathname === "/topRatedShows"
+                    ? "md:p-4 py-2 block text-rose-600"
+                    : "md:p-4 py-2 block hover:text-rose-600"
+                }
                 href="/topRatedShows"
               >
                 Top rated Shows
