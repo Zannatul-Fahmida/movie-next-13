@@ -3,26 +3,46 @@ import Social from "@/components/Social";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { toast, Toaster } from "react-hot-toast";
 import { SlLogin } from "react-icons/sl";
 
 export default function Signup() {
-  const session = useSession();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
-  const onSubmit = (data) => {
-    signIn("credentials", {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      confirmPassword: data.confirmPassword,
+  const onSubmit = async (user) => {
+    if (user.password !== user.confirmPassword) {
+      toast.error("passwords do not match");
+      return;
+    }
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user }),
     });
+
+    const userData = await res.json();
+    if (!userData.userId) {
+      toast.error(userData.message);
+    } else {
+      toast.success(userData.message);
+      reset();
+      signIn("credentials", {
+        redirect: true,
+        callbackUrl: "/",
+        email: userData.email,
+      });
+    }
   };
 
   return (
     <div className="flex flex-col items-center">
+      <Toaster />
       <div className="flex flex-col md:flex-row mx-4 items-center justify-center my-12">
         <div className="bg-fuchsia-700 md:w-1/3 py-6 px-4 text-center text-white">
           <SlLogin className="w-full h-24" />

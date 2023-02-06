@@ -6,18 +6,30 @@ import { FcGoogle } from "react-icons/fc";
 import { FaLinkedinIn } from "react-icons/fa";
 import { BsGithub, BsFacebook } from "react-icons/bs";
 import Social from "@/components/Social";
+import { signIn } from "next-auth/react";
+import { toast, Toaster } from "react-hot-toast";
 
 export default function Login() {
   const {
     register,
     handleSubmit,
-
+    reset,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    signIn("credentials", {
+      redirect: true,
+      callbackUrl: "/",
+      email: data.email,
+      password: data.password,
+    });
+    reset();
+    toast.success("Successfully logged in");
+  };
 
   return (
     <div className="flex flex-col items-center">
+      <Toaster />
       <div className="flex flex-col md:flex-row mx-4 items-center justify-center my-12">
         <div className="bg-green-700 md:w-1/3 py-6 px-4 text-center text-white">
           <SlLogin className="w-full h-24" />
@@ -35,6 +47,7 @@ export default function Login() {
               className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
         focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               placeholder="Email"
+              type="email"
               {...register("email", { required: true })}
             />
             {errors.email && <span>This field is required</span>}
@@ -42,6 +55,7 @@ export default function Login() {
               className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
         focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               placeholder="Password"
+              type="password"
               {...register("password", { required: true })}
             />
             {errors.password && <span>This field is required</span>}

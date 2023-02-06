@@ -3,9 +3,8 @@ import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import LinkedInProvider from "next-auth/providers/linkedin";
 import FacebookProvider from "next-auth/providers/facebook";
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-import clientPromise from "../../../lib/mongodb";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { connectToDatabase } from "@/lib/mongodb";
 
 export default NextAuth({
   providers: [
@@ -26,23 +25,25 @@ export default NextAuth({
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     }),
     CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        name: { label: "Name", type: "text", placeholder: "jsmith" },
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
-        confirmPassword: { label: "Confirm Password", type: "password" },
-      },
-      async authorize(credentials, req) {
-        const { name, email, password, confirmPassword } = credentials;
-        const user = { name, email, password, confirmPassword };
-        if (user) {
-          return user;
-        } else {
-          return null;
+      name: "credentials",
+      async authorize(credentials) {
+        const client = await connectToDatabase();
+
+        const usersCollection = client.db().collection("users");
+        const user = await usersCollection.findOne({
+          email: credentials.email,
+        });
+
+        await client.close();
+
+        if (!user) {
+          return "No user found!";
+        } else if (user.password !== credentials.password) {
+          return "Wrong password";
         }
+
+        return { email: user.email };
       },
     }),
   ],
-  adapter: MongoDBAdapter(clientPromise),
 });

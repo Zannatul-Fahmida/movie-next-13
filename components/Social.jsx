@@ -7,20 +7,20 @@ export default function Social() {
   return (
     <div>
       <button
-        onClick={() => signIn("google", { redirect: false, callbackUrl: "/" })}
+        onClick={() => signIn("google", { redirect: true, callbackUrl: "/" })}
         className="mx-2"
       >
         <FcGoogle />
       </button>
       <button
-        onClick={() => signIn("github", { redirect: false, callbackUrl: "/" })}
+        onClick={() => signIn("github", { redirect: true, callbackUrl: "/" })}
         className="mx-2"
       >
         <BsGithub />
       </button>
       <button
         onClick={() =>
-          signIn("facebook", { redirect: false, callbackUrl: "/" })
+          signIn("facebook", { redirect: true, callbackUrl: "/" })
         }
         className="mx-2 text-blue-800"
       >
@@ -28,7 +28,7 @@ export default function Social() {
       </button>
       <button
         onClick={() =>
-          signIn("linkedin", { redirect: false, callbackUrl: "/" })
+          signIn("linkedin", { redirect: true, callbackUrl: "/" })
         }
         className="mx-2 text-blue-600"
       >
