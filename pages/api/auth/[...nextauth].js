@@ -33,15 +33,15 @@ export default NextAuth({
         const user = await usersCollection.findOne({
           email: credentials.email,
         });
-
-        await client.close();
-
         if (!user) {
-          return "No user found!";
-        } else if (user.password !== credentials.password) {
-          return "Wrong password";
+          client.close();
+          throw new Error("No user found for this email. Please Sign Up...!");
         }
-
+        if (credentials.password !== user.password) {
+          client.close();
+          throw new Error("Wrong password");
+        }
+        client.close();
         return { email: user.email };
       },
     }),

@@ -17,14 +17,16 @@ export default function Login() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    signIn("credentials", {
+    const login = signIn("credentials", {
       redirect: true,
       callbackUrl: "/",
       email: data.email,
       password: data.password,
     });
-    reset();
-    toast.success("Successfully logged in");
+    if (login) {
+      reset();
+      toast.success("Successfully logged in");
+    }
   };
 
   return (
