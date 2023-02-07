@@ -27,13 +27,14 @@ export default NextAuth({
     CredentialsProvider({
       name: "credentials",
       async authorize(credentials) {
+        console.log(credentials);
         const client = await connectToDatabase();
 
         const usersCollection = client.db().collection("users");
         const user = await usersCollection.findOne({
           email: credentials.email,
         });
-        if (!user) {
+        if (!user && credentials.url==="/login") {
           client.close();
           throw new Error("No user found for this email. Please Sign Up...!");
         }

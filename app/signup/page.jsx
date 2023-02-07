@@ -35,7 +35,9 @@ export default function Signup() {
       signIn("credentials", {
         redirect: true,
         callbackUrl: "/",
-        email: userData.email,
+        email: user.email,
+        password: user.password,
+        url: "/signup"
       });
     }
   };

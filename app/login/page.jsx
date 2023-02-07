@@ -2,9 +2,6 @@
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { SlLogin } from "react-icons/sl";
-import { FcGoogle } from "react-icons/fc";
-import { FaLinkedinIn } from "react-icons/fa";
-import { BsGithub, BsFacebook } from "react-icons/bs";
 import Social from "@/components/Social";
 import { signIn } from "next-auth/react";
 import { toast, Toaster } from "react-hot-toast";
@@ -22,6 +19,7 @@ export default function Login() {
       callbackUrl: "/",
       email: data.email,
       password: data.password,
+      url: "/login",
     });
     if (login) {
       reset();
