@@ -1,5 +1,5 @@
 import { FcGoogle } from "react-icons/fc";
-import { FaLinkedinIn } from "react-icons/fa";
+import { FaLinkedinIn, FaDiscord } from "react-icons/fa";
 import { BsGithub, BsFacebook } from "react-icons/bs";
 import { signIn } from "next-auth/react";
 
@@ -33,6 +33,14 @@ export default function Social() {
         className="mx-2 text-blue-600"
       >
         <FaLinkedinIn />
+      </button>
+      <button
+        onClick={() =>
+          signIn("discord", { redirect: true, callbackUrl: "/" })
+        }
+        className="mx-2"
+      >
+        <FaDiscord />
       </button>
     </div>
   );

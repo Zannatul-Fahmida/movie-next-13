@@ -4,6 +4,7 @@ import GoogleProvider from "next-auth/providers/google";
 import LinkedInProvider from "next-auth/providers/linkedin";
 import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
+import DiscordProvider from "next-auth/providers/discord";
 import { connectToDatabase } from "@/lib/mongodb";
 
 export default NextAuth({
@@ -11,6 +12,10 @@ export default NextAuth({
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
+    }),
+    DiscordProvider({
+      clientId: process.env.DISCORD_CLIENT_ID,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET,
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -34,7 +39,7 @@ export default NextAuth({
         const user = await usersCollection.findOne({
           email: credentials.email,
         });
-        if (!user && credentials.url==="/login") {
+        if (!user && credentials.url === "/login") {
           client.close();
           throw new Error("No user found for this email. Please Sign Up...!");
         }
