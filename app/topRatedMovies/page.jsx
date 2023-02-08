@@ -7,7 +7,7 @@ export default async function TopRatedMovies() {
   );
   const res = await data.json();
   return (
-    <main className=" mx-32 my-12">
+    <main className="mx-8 md:mx-32 my-12">
       <h1 className="text-3xl text-center text-rose-700 font-bold mb-6">Top Rated Movies</h1>
       <Search />
       <div className="grid gap-16 grid-cols-fluid mt-6">
