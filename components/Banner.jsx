@@ -1,10 +1,15 @@
+"use client";
 import styles from "./Banner.module.css";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 
 export default function Banner() {
+  const { theme } = useTheme();
   return (
-    <div className={`${styles.bannerBg} flex items-center`}>
+    <div
+      className={`${theme==='dark' && styles.bannerBgDark} ${styles.bannerBg} flex items-center`}
+    >
       <div
         className={`${styles.backdropFilter} md:flex items-center justify-between py-12 px-8 w-full`}
       >
@@ -17,7 +22,7 @@ export default function Banner() {
           </h2>
         </div>
         <div>
-          <Link href='/signup'>
+          <Link href="/signup">
             <button className="animate-bounce bg-rose-700 rounded-md px-4 py-2 text-white">
               Signup Now <AiOutlineArrowRight className="inline" />
             </button>
